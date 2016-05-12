@@ -3,6 +3,8 @@ package org.toxiccloudgaming.blockminer.resource;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
+import org.toxiccloudgaming.blockminer.language.Localizable;
+
 //Main file for loading BlockMiner assets.
 public abstract class Asset {
 
@@ -15,11 +17,12 @@ public abstract class Asset {
 
     public enum FileType {
         TYPE_IMG_PNG, TYPE_IMG_JPG, TYPE_IMG_BMP,
-        TYPE_TEXT_TXT, TYPE_TEXT_BIN
+        TYPE_TEXT_TXT, TYPE_TEXT_BIN, TYPE_LANG
     };
 
     //Asset directories.
     public static final String DIR_TEXTURE = "texture/";
+    public static final String DIR_LANGUAGE = "language/";
 
     /*
      *
@@ -40,6 +43,8 @@ public abstract class Asset {
                 return TEXT_SUFF_TXT;
             case TYPE_TEXT_BIN:
                 return TEXT_SUFF_BIN;
+            case TYPE_LANG:
+                return Localizable.LANG_SUFF;
             default:
                 return null;
         }

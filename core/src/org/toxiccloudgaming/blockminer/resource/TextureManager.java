@@ -8,8 +8,8 @@ import java.util.List;
 //Manager for all Texture Assets.
 public class TextureManager {
 
-    //Main TextureManager for BlockMiner.
-    private static TextureManager textureManager;
+    //Global TextureManager object.
+    private static TextureManager globalTextureManager;
 
     //Texture directories.
     public static final String DIR_TILE = Asset.DIR_TEXTURE + "tile/";
@@ -28,10 +28,19 @@ public class TextureManager {
     //Parent manager.
     private AssetManager assetManager;
 
-    public TextureManager(AssetManager assetManager) {
-        textureManager = this;
+    public TextureManager() {
         this.assetManager = assetManager;
         this.initTextures();
+    }
+
+    //Sets the global TextureManager.
+    public static void setTextureManager(TextureManager textureManager) {
+        globalTextureManager = textureManager;
+    }
+
+    //Gets the global TextureManager.
+    public static TextureManager getTextureManager() {
+        return globalTextureManager;
     }
 
     //Get parent manager.
@@ -73,10 +82,5 @@ public class TextureManager {
     //Get Wall Texture from manager.
     public Texture wallTexture(int textureID) {
         return this.wallTextures.get(textureID);
-    }
-
-    //Get the TextureManager for the game.
-    public static TextureManager getTextureManager() {
-        return textureManager;
     }
 }

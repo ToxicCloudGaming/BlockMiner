@@ -1,0 +1,19 @@
+'blockminer':[
+    'title'='Block Miner',
+    'language':[
+        'en'    = "English",
+        'en_gb' = "English - Great Britain",
+        'en_us' = "English - United States",
+        'es'    = "Spanish",
+        'es_mx' = "Spanish - Mexico"
+    ],
+    'tile':[
+        'block':[
+            'air' = "Air",
+            'dirt' = "Dirt",
+            'stone' = "Stone",
+        ],
+        'wall':[
+        ]
+    ]
+]

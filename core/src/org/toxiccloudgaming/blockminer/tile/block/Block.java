@@ -1,72 +1,42 @@
 package org.toxiccloudgaming.blockminer.tile.block;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import org.toxiccloudgaming.blockminer.tile.Tile;
 import org.toxiccloudgaming.blockminer.world.Chunk;
 
 //Blocks are the foreground of Tiles in a Chunk.
-public class Block implements Tile {
+public class Block extends Tile {
 
-    //Global position variables.
-    protected Chunk blockChunk;
-    protected int blockX;
-    protected int blockY;
+    //Default Block State.
+    public static final int STATE_NONE = 0;
 
-    //If a Block is empty, it is considered 'air'.
-    private boolean isEmpty;
+    //Create Block in World.
+    private Block(Chunk blockChunk, int x, int y, int blockID, int blockState) {
+        super(blockChunk, x, y, blockID, blockState);
+    }
 
-    //Shared Texture for Blocks.
-    protected Texture textureSheet;
-
-    //Block texture.
-    protected Sprite texture;
-
-    //Default Block assumed to be air.
-    public Block() {
-        this.isEmpty = true;
+    //Create a new Block with state.
+    public Block(int blockID, int blockState) {
+        this(null, -1, -1, blockID, blockState);
         this.initTexture();
     }
 
-    //Create Block in World.
-    public Block(int x, int y) {
-        this.blockX = x;
-        this.blockY = y;
-        this.isEmpty = true;
+    //Create a new Block.
+    public Block(int blockID) {
+        this(blockID, STATE_NONE);
     }
 
-    //Override this class for Textures.
-    protected void initTexture() {};
-
-    //Get Block's x position in Chunk.
-    @Override
-    public int getChunkX() {
-        return this.blockX;
+    //Copy Block from Blocks registry.
+    public static void setBlockAt(Chunk blockChunk, int x, int y, int blockID) {
+        setBlockAt(blockChunk, x, y, blockID, STATE_NONE);
     }
 
-    //Get Block's y position in Chunk.
-    @Override
-    public int getChunkY() {
-        return this.blockY;
-    }
-
-    //Get Block's x position in World.
-    @Override
-    public int getWorldX() {
-        return this.blockChunk.getWorldX() + this.blockX;
-    }
-
-    //Get Block's x position in World.
-    @Override
-    public int getWorldY() {
-        return this.blockChunk.getWorldY() + this.blockY;
-    }
-
-    //Checks if Block is empty.
-    @Override
-    public boolean isEmpty() {
-        return this.isEmpty;
+    //Copy Block from Blocks registry, with state.
+    public static void setBlockAt(Chunk blockChunk, int x, int y, int blockID, int blockState) {
+        if(x >= 0 && x < Chunk.CHUNK_WIDTH && y >= 0 && y < Chunk.CHUNK_HEIGHT) {
+            blockChunk.setBlock(x, y, new Block(blockChunk, x, y, blockID, blockState));
+        }
     }
 
     //Get Block's Bounds.
@@ -75,39 +45,18 @@ public class Block implements Tile {
     }
 
     //Get Block's identity string (Used to get block type).
-    @Override
-    public String toString() {
-        return Blocks.getBlockString(this.blockID());
+    public String blockString() {
+        return Blocks.getBlockString(this.blockID);
     }
 
-    //Get a Tile's ID.
+    //Get a Blocks's ID.
     @Override
-    public int tileID() {
-        return this.blockID();
-    }
-
-    //Get Block's ID number.
     public int blockID() {
-        return Blocks.getBlockID(this);
-    }
-
-    //Update a Block.
-    public void update() {
-        //TODO setup Block update
+        return this.blockID;
     }
 
     //Get the Block's unique Texture.
     protected Sprite getTexture() {
-        return this.texture;
-    }
-
-    //Render a Block.
-    public void render() {
-        if(!this.isEmpty) {
-            //TODO setup Block render
-            if(this.texture != null) {
-
-            }
-        }
+        return this.blockTexture;
     }
 }

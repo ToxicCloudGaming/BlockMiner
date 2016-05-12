@@ -38,9 +38,15 @@ public class Chunk {
     public void render() {
         for(int x = 0; x < CHUNK_WIDTH; x++) {
             for(int y = 0; y < CHUNK_HEIGHT; y++) {
-                this.walls[y][x].render();
-                this.blocks[y][x].render();
+                //this.walls[y][x].render();
+                //this.blocks[y][x].render();
+                //TODO render chunk.
             }
         }
+    }
+
+    //Set Block at Position in Chunk.
+    public void setBlock(int x, int y, Block block) {
+        this.blocks[x][y] = block;
     }
 }

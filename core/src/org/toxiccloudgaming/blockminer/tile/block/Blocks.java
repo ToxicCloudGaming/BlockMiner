@@ -1,6 +1,7 @@
 package org.toxiccloudgaming.blockminer.tile.block;
 
 import org.toxiccloudgaming.blockminer.resource.TextureManager;
+import org.toxiccloudgaming.blockminer.tile.block.basic.BlockSoil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,31 +43,17 @@ public class Blocks implements BlockID {
         strings = new HashMap<Integer, String>();
         strings.put(BLOCK_UNKNOWN, "UNKNOWN");
 
-        addBlock(BLOCK_AIR,         "AIR",          new Block());
-        addBlock(BLOCK_DIRT,        "DIRT",         new org.toxiccloudgaming.blockminer.tile.block.basic.BlockBasic());
-        addBlock(BLOCK_STONE,       "STONE",        new org.toxiccloudgaming.blockminer.tile.block.basic.BlockBasic());
+        registerBlock(new Block(BLOCK_AIR), "air");
+        registerBlock(new BlockSoil(BLOCK_DIRT), "dirt");
+        registerBlock(new BlockSoil(BLOCK_STONE), "stone");
     }
 
-    //Used to add a new Block to the game.
-    protected void addBlock(int blockID, String blockString, Block block) {
+    //Add a new Block to the game.
+    protected void registerBlock(Block block, String unlocalizedName) {
+        this.registerTile(unlocalizedName);
+        int blockID = block.tileID();
         blocks[blockID] = block;
-        strings.put(blockID, blockString);
-    }
-
-    //Get Block identity string. If UNKNOWN is returned, Block was never added.
-    public static String getBlockString(int blockID) {
-        return "BLOCK." + strings.get(blockID);
-    }
-
-    //Get a Block's ID number.
-    public static int getBlockID(Block block) {
-        if(block.isEmpty()) return BLOCK_AIR;
-        for(int i = 0; i < MAX_BLOCKS; i++) {
-            if(blocks[i].getClass().equals(block.getClass())) {
-                return i;
-            }
-        }
-
-        return -1;
+        block.setUnlocalizedName(unlocalizedName);
+        strings.put(blockID, unlocalizedName);
     }
 }
