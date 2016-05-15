@@ -1,27 +1,40 @@
 package org.toxiccloudgaming.blockminer.world;
 
-import org.toxiccloudgaming.blockminer.tile.wall.Wall;
-import org.toxiccloudgaming.blockminer.tile.block.Block;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-//Chunks are a group of x by y Blocks/Walls.
+import org.toxiccloudgaming.blockminer.tile.Tile;
+import org.toxiccloudgaming.blockminer.tile.TileLayer;
+import org.toxiccloudgaming.blockminer.tile.collidable.block.BlockRegistry;
+
+//Chunks are a group of x by y Tiles.
 public class Chunk {
 
     //All Chunks have equal width and height.
-    public static final int CHUNK_WIDTH = 256;
-    public static final int CHUNK_HEIGHT = 256;
+    public static final int CHUNK_WIDTH = 64;
+    public static final int CHUNK_HEIGHT = 64;
 
     //Global position variables.
     private World world;
     private int chunkX;
     private int chunkY;
 
-    //2D Arrays of the Blocks/Walls in a Chunk.
-    private Block[][] blocks;
-    private Wall[][] walls;
+    //2D Arrays of the Tiles in a Chunk.
+    private Tile[][] tiles;
 
     public Chunk() {
-        this.blocks = new Block[CHUNK_HEIGHT][CHUNK_WIDTH];
-        this.walls = new Wall[CHUNK_HEIGHT][CHUNK_WIDTH];
+        this.tiles = new Tile[CHUNK_HEIGHT][CHUNK_WIDTH];
+
+        this.clearChunk();
+        //TODO setup Chunk Generation
+    }
+
+    //Clear the Chunk before Generation.
+    private void clearChunk() {
+        for(int y = 0; y < CHUNK_HEIGHT; y++) {
+            for(int x = 0; x < CHUNK_WIDTH; x++) {
+                this.clearTileAt(x, y);
+            }
+        }
     }
 
     //Get Chunk's x position in World.
@@ -35,18 +48,33 @@ public class Chunk {
     }
 
     //Render a Chunk.
-    public void render() {
+    public void render(SpriteBatch batch) {
         for(int x = 0; x < CHUNK_WIDTH; x++) {
             for(int y = 0; y < CHUNK_HEIGHT; y++) {
-                //this.walls[y][x].render();
-                //this.blocks[y][x].render();
+                this.tiles[y][x].render(batch);
                 //TODO render chunk.
             }
         }
     }
 
-    //Set Block at Position in Chunk.
-    public void setBlock(int x, int y, Block block) {
-        this.blocks[x][y] = block;
+    //Get Tile at position in Chunk.
+    public Tile getTileAt(int x, int y) {
+        return this.tiles[y][x];
+    }
+
+    //Set all TileComponents in Tile to empty.
+    public void clearTileAt(int x, int y) {
+        //this.setFrameAt();
+        this.setBlockAt(BlockRegistry.BLOCK_AIR, this.tiles[y][x]);
+    }
+
+    //Set Frame at position in Chunk.
+    public void setFrameAt(int frameID, Tile tile) {
+        //TODO setFrameAt
+    }
+
+    //Set Block at position in Chunk.
+    public void setBlockAt(int blockID, Tile tile) {
+        tile.setTileComponent(BlockRegistry.copy(tile, blockID), TileLayer.COLLIDABLE);
     }
 }

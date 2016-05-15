@@ -1,10 +1,13 @@
-package org.toxiccloudgaming.blockminer.language;
+package org.toxiccloudgaming.blockminer.registry;
+
+import org.toxiccloudgaming.blockminer.info.WIP;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 //This class is used to change in-game text depending on the language.
+@WIP
 public class LanguageRegistry {
 
     //Global LanguageRegistry object. Change if you wish to extend this class.
