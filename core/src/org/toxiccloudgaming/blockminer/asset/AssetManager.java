@@ -42,7 +42,7 @@ public class AssetManager {
     }
 
     //Asset method for loading a texture.
-    public static Texture loadTexture(String file) {
+    public Texture loadTexture(String file) {
         return new Texture(Gdx.files.internal(file));
     }
 }

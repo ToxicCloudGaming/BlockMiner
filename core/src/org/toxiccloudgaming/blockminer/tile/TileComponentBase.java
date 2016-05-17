@@ -6,10 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 //Base class for all TileComponents.
 public abstract class TileComponentBase implements TileComponent {
 
-    //Width and height of TileComponents in pixels. For rendering purposes.
-    public static final int PIXEL_WIDTH = 16;
-    public static final int PIXEL_HEIGHT = 16;
-
     //Parent Tile.
     protected Tile tile;
 
@@ -28,6 +24,7 @@ public abstract class TileComponentBase implements TileComponent {
     public TileComponentBase(Tile tile, TileComponent tileComponent) {
         this.tile = tile;
         this.id = tileComponent.getID();
+        this.initTexture();
     }
 
     //Base TileComponents are empty by default.
@@ -39,6 +36,7 @@ public abstract class TileComponentBase implements TileComponent {
     //Render the texture for this component.
     @Override
     public void render(SpriteBatch batch) {
+        System.out.println("HI");
         batch.draw(this.texture, this.tile.x, this.tile.y, PIXEL_WIDTH, PIXEL_HEIGHT);
     }
 

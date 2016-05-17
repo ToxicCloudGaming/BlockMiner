@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 
 import org.toxiccloudgaming.blockminer.init.Startup;
 import org.toxiccloudgaming.blockminer.registry.Registry;
+import org.toxiccloudgaming.blockminer.render.RenderEngine;
 
 //Main game class for BlockMiner.
 @Registry("blockminer")
@@ -18,10 +19,16 @@ public class BlockMiner extends ApplicationAdapter {
 	@Override
 	public void create() {
 		Startup.preInitialization();
+		Startup.initialization();
+		Startup.postInitialization();
 	}
 
 	@Override
 	public void render() {
-		
+		if(RenderEngine.getRenderEngine() != null) {
+			RenderEngine.getRenderEngine().render();
+		} else {
+			System.out.println("RenderEngine currently null");
+		}
 	}
 }

@@ -1,5 +1,7 @@
 package org.toxiccloudgaming.blockminer.asset;
 
+import com.badlogic.gdx.graphics.Texture;
+
 //Manager for all Texture Assets.
 public class TextureManager {
 
@@ -9,6 +11,8 @@ public class TextureManager {
     //Texture base directories.
     public static final String DIR_TILE = Asset.BASE_TEXTURE + "tile/";
     public static final String DIR_ENTITY = Asset.BASE_TEXTURE + "entity/";
+
+    public static final String DIR_BLOCK = DIR_TILE + "block/";
 
     //Sets the global TextureManager.
     public static void setTextureManager(TextureManager textureManager) {
@@ -20,9 +24,8 @@ public class TextureManager {
         return globalTextureManager;
     }
 
-    //Initialize Texture lists.
-    protected void loadTextures() {
-        AssetManager assetManager = AssetManager.getAssetManager();
-
+    //Load Texture file.
+    public Texture loadTexture(String path) {
+        return AssetManager.getAssetManager().loadTexture(path);
     }
 }

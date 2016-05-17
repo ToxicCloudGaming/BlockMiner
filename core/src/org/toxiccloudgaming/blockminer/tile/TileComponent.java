@@ -10,6 +10,10 @@ public interface TileComponent {
      * and naming.
      */
 
+    //Width and height of TileComponents in pixels. For rendering purposes.
+    int PIXEL_WIDTH = 16;
+    int PIXEL_HEIGHT = 16;
+
     //The default number of layers in a Tile.
     int TILE_LAYERS = 4;
 

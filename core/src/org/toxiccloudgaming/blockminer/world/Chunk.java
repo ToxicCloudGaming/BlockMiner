@@ -64,8 +64,9 @@ public class Chunk {
 
     //Set all TileComponents in Tile to empty.
     public void clearTileAt(int x, int y) {
+        this.tiles[y][x] = new Tile(this, x, y);
         //this.setFrameAt();
-        this.setBlockAt(BlockRegistry.BLOCK_AIR, this.tiles[y][x]);
+        this.setBlockAt(BlockRegistry.BLOCK_DIRT, this.tiles[y][x]);
     }
 
     //Set Frame at position in Chunk.
